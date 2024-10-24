@@ -30,7 +30,7 @@
 <% if (carro == null || carro.getItems().isEmpty()){%>
     <p> Lo siento pero no hat productos en el carro de compras</p>
 <%} else{%>
-  <table border = "1" width="650">
+  <table class="table">
     <tr>
       <th>Id</th>
       <th>Nombre</th>

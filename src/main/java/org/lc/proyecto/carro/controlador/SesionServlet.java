@@ -4,10 +4,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import org.lc.proyecto.carro.modelo.dto.ConexionBD;
+import org.lc.proyecto.carro.modelo.dto.Utilitaria;
+
 import java.io.IOException;
 import java.sql.*;
+import java.util.Optional;
 
-@WebServlet({"/InicioSesion","/InicioSesionGet"})
+@WebServlet({"/InicioSesion", "/InicioSesionGet"})
 public class SesionServlet extends HttpServlet {
 
     @Override
@@ -18,7 +21,7 @@ public class SesionServlet extends HttpServlet {
 
         try (Statement st = ConexionBD.getInstance().createStatement();
              ResultSet rs = st.executeQuery(sql)
-        ){
+        ) {
 
             if (rs.next()) {
                 HttpSession sesion = req.getSession();
@@ -29,7 +32,7 @@ public class SesionServlet extends HttpServlet {
                 req.getRequestDispatcher("/login.jsp").forward(req, resp);
             }
 
-        } catch (ClassNotFoundException| SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "error" + e.getMessage());
         }
     }
@@ -37,8 +40,15 @@ public class SesionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.getRequestDispatcher("/login.jsp").forward(req, resp);
-        //getServletContext().getRequestDispatcher("/InicioSesionGet").forward(req, resp);
+        Utilitaria util = new Utilitaria();
+        Optional<String> sessionOptional = util.obtenerUsuario(req);
+
+        if(sessionOptional.isPresent()) {
+            req.getRequestDispatcher("/Bienvenida.jsp").forward(req, resp);
+        }
+        else {
+            req.getRequestDispatcher("/login.jsp").forward(req, resp);
+        }//getServletContext().getRequestDispatcher("/InicioSesionGet").forward(req, resp);
     }
 }
 

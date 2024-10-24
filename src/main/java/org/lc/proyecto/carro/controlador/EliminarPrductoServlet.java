@@ -10,24 +10,24 @@ import org.lc.proyecto.carro.modelo.dto.Producto;
 
 import java.io.IOException;
 import java.util.List;
-@WebServlet("EliminarServlet")
+@WebServlet("/EliminarServlet")
 public class EliminarPrductoServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductoDAOImp productoDAO = new ProductoDAOImp();
-        //String accion = req.getParameter("accion");
-
         int id = Integer.parseInt(req.getParameter("id"));
-        productoDAO.eliminarProducto(id); // metodo
+        try{
+            id = Integer.parseInt(req.getParameter("id"));
 
-        // Después de eliminar, volvemos a cargar la lista de productos
-        List<Producto> productos = productoDAO.listarProducto();
-        req.setAttribute("productos", productos);
+        }catch (NumberFormatException e){
+            id =0;
+            e.printStackTrace();
+        }
 
-        // Redirigir a la página que muestra los productos
-        req.getRequestDispatcher("/EliminarProducto.jsp").forward(req, resp);
-
-        resp.sendRedirect(req.getContextPath() + "/Productos");
-
+        if(id>0){
+            productoDAO.eliminar(id);
+        }
+        resp.sendRedirect(req.getContextPath()+"/ProductosGet");
     }
 }
+

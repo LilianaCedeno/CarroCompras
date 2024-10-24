@@ -5,9 +5,11 @@
 <%@ page import="java.util.Optional" %>
 <html>
 <head>
-    <title>Agregar Producto</title>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Agregar Producto</title>
+
+
 </head>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
@@ -25,20 +27,19 @@
 </nav>
 </head>
 <body>
+<div class="container">
 
-<form method="post" action="/AgregarPServlet">
+<form method="post" action="/ProyectoCarro/Productos">
     <table class="table">
         <thead>
         <tr>
-            <th>ID</th>
             <th>Nombre</th>
             <th>Tipo</th>
             <th>Precio</th>
-            <th>       </th>
+
         </tr>
         </thead>
         <tbody>
-
             <tr>
                 <td> <input type="text" id="nombre" name="nombre" required> </td>
                 <td> <input type="text" id="tipo" name="tipo" required> </td>
@@ -48,6 +49,7 @@
     </table>
     <button type="submit" class="btn btn-primary">Agregar Producto</button>
 </form>
-
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
